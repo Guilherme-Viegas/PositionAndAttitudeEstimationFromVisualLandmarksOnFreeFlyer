@@ -7,4 +7,4 @@
 subdirs("gtest")
 subdirs("controller")
 subdirs("dynamics")
-subdirs("kinematics")
+subdirs("dynamics_3dof")

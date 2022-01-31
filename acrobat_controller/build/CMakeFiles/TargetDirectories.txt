@@ -65,10 +65,10 @@
 /home/guilherme/acrobat_controller/build/dynamics/CMakeFiles/install/local.dir
 /home/guilherme/acrobat_controller/build/dynamics/CMakeFiles/rebuild_cache.dir
 /home/guilherme/acrobat_controller/build/dynamics/CMakeFiles/install.dir
-/home/guilherme/acrobat_controller/build/kinematics/CMakeFiles/install/strip.dir
-/home/guilherme/acrobat_controller/build/kinematics/CMakeFiles/edit_cache.dir
-/home/guilherme/acrobat_controller/build/kinematics/CMakeFiles/list_install_components.dir
-/home/guilherme/acrobat_controller/build/kinematics/CMakeFiles/test.dir
-/home/guilherme/acrobat_controller/build/kinematics/CMakeFiles/install/local.dir
-/home/guilherme/acrobat_controller/build/kinematics/CMakeFiles/rebuild_cache.dir
-/home/guilherme/acrobat_controller/build/kinematics/CMakeFiles/install.dir
+/home/guilherme/acrobat_controller/build/dynamics_3dof/CMakeFiles/install/strip.dir
+/home/guilherme/acrobat_controller/build/dynamics_3dof/CMakeFiles/edit_cache.dir
+/home/guilherme/acrobat_controller/build/dynamics_3dof/CMakeFiles/list_install_components.dir
+/home/guilherme/acrobat_controller/build/dynamics_3dof/CMakeFiles/test.dir
+/home/guilherme/acrobat_controller/build/dynamics_3dof/CMakeFiles/install/local.dir
+/home/guilherme/acrobat_controller/build/dynamics_3dof/CMakeFiles/rebuild_cache.dir
+/home/guilherme/acrobat_controller/build/dynamics_3dof/CMakeFiles/install.dir

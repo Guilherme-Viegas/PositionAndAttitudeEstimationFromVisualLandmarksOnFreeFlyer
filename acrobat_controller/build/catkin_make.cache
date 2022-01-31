@@ -1,2 +1,2 @@
-controller:dynamics:kinematics
+controller:dynamics:dynamics_3dof
 -DCATKIN_DEVEL_PREFIX=/home/guilherme/acrobat_controller/devel -DCMAKE_INSTALL_PREFIX=/home/guilherme/acrobat_controller/install -G Unix Makefiles

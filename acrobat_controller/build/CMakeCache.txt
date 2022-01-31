@@ -327,6 +327,12 @@ controller_SOURCE_DIR:STATIC=/home/guilherme/acrobat_controller/src/controller
 cpp_common_DIR:PATH=/opt/ros/melodic/share/cpp_common/cmake
 
 //Value Computed by CMake
+dynamics_3dof_BINARY_DIR:STATIC=/home/guilherme/acrobat_controller/build/dynamics_3dof
+
+//Value Computed by CMake
+dynamics_3dof_SOURCE_DIR:STATIC=/home/guilherme/acrobat_controller/src/dynamics_3dof
+
+//Value Computed by CMake
 dynamics_BINARY_DIR:STATIC=/home/guilherme/acrobat_controller/build/dynamics
 
 //Value Computed by CMake

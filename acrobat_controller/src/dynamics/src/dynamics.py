@@ -37,10 +37,10 @@ A = np.column_stack((a1, a2, a3, a4, a5, a6))
 A_inverse = np.linalg.inv(A)
 
 DESIRED_POSITION = np.array((0.1, 0, 0)) # To be 10cm in front of the AR tag
-DESIRED_LINEAR_VELOCITY = np.array((0, 0, 0)) # TODO: To be confirmed whit professor on how to know its value
+DESIRED_LINEAR_VELOCITY = np.array((0, 0, 0)) # We want the robot to be stopped in the end
 DESIRED_ATTITUDE = np.array((0, 0, 0)) # To be aligned with the AR tag TODO: This might have be confirmed... don't known if this will make the front of the robot face backwards
 DESIRED_ROTATION_MATRIX = get_rotation_matrix_from_euler_angles(DESIRED_ATTITUDE)
-DESIRED_ANGULAR_VELOCITY = np.array((0, 0, 0)) # TODO: To be confirmed whit professor on how to know its value
+DESIRED_ANGULAR_VELOCITY = np.array((0, 0, 0)) # We want the robot to be stopped in the end
 DESIRED_ANGULAR_ACCELERATION = np.array((0, 0, 0))
 
 # Some testing values -> Later, these will be received by the Aruco Pkg
@@ -70,8 +70,8 @@ def compute_force_and_torque(position, attitude):
     inverse_of_S_w = get_inverse_S_w( (np.dot(DESIRED_ROTATION_MATRIX.T, attitude_rotation_matrix) - np.dot(attitude_rotation_matrix.T, DESIRED_ROTATION_MATRIX)) )
     error_r = ( 1 / (2*np.sqrt(1 + np.trace( np.dot(DESIRED_ROTATION_MATRIX.T, attitude_rotation_matrix ))) )) * inverse_of_S_w
     error_w = current_angular_velocity - np.dot(np.dot( attitude_rotation_matrix.T, DESIRED_ROTATION_MATRIX), DESIRED_ANGULAR_VELOCITY)
-    inverse_of_S_w = get_inverse_S_w( np.dot( np.dot(attitude_rotation_matrix.T, DESIRED_ROTATION_MATRIX), np.asmatrix(DESIRED_ANGULAR_VELOCITY).T ) )
-    torque = -K_r * error_r - K_w * error_w + np.dot(np.dot(np.dot(np.dot(inverse_of_S_w, FREE_FLYER_MOMENT_OF_INERTIA), attitude_rotation_matrix.T), DESIRED_ROTATION_MATRIX), DESIRED_ANGULAR_VELOCITY) + np.dot(np.dot(np.dot(FREE_FLYER_MOMENT_OF_INERTIA, attitude_rotation_matrix.T), DESIRED_ROTATION_MATRIX), DESIRED_ANGULAR_ACCELERATION)
+    S_w_matrix = get_S_w( np.dot( np.dot(attitude_rotation_matrix.T, DESIRED_ROTATION_MATRIX), np.asmatrix(DESIRED_ANGULAR_VELOCITY).T ) )
+    torque = -K_r * error_r - K_w * error_w + np.dot(np.dot(np.dot(np.dot(S_w_matrix, FREE_FLYER_MOMENT_OF_INERTIA), attitude_rotation_matrix.T), DESIRED_ROTATION_MATRIX), DESIRED_ANGULAR_VELOCITY) + np.dot(np.dot(np.dot(FREE_FLYER_MOMENT_OF_INERTIA, attitude_rotation_matrix.T), DESIRED_ROTATION_MATRIX), DESIRED_ANGULAR_ACCELERATION)
 
     return force, torque
 
@@ -82,10 +82,15 @@ def get_inverse_S_w(matrix):
     angular_velocity = (matrix[2][1], matrix[0][2], matrix[1][0])
     return np.array(angular_velocity)
 
+def get_S_w(vect):
+    s_matrix = np.array([[0, -vect[2], vect[1]], [vect[2], 0, -vect[0]], [-vect[1], vect[0], 0]])
+    return s_matrix
+
 # For now it returns the rotations per second (q) instead of pwm -> TODO: Find how to make this conversion from q to pwm
 def compute_pwm_control(force, torque):
     input_vect = np.concatenate((force, torque), axis = 0)
     q = np.dot(A_inverse, input_vect)
+    q = q * 100 / FREE_FLYER_BLADE_MAX_RPS
     return np.array(q)
 
 if __name__ == '__main__':

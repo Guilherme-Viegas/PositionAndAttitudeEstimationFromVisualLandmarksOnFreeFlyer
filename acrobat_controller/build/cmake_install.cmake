@@ -133,7 +133,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/guilherme/acrobat_controller/build/gtest/cmake_install.cmake")
   include("/home/guilherme/acrobat_controller/build/controller/cmake_install.cmake")
   include("/home/guilherme/acrobat_controller/build/dynamics/cmake_install.cmake")
-  include("/home/guilherme/acrobat_controller/build/kinematics/cmake_install.cmake")
+  include("/home/guilherme/acrobat_controller/build/dynamics_3dof/cmake_install.cmake")
 
 endif()
 

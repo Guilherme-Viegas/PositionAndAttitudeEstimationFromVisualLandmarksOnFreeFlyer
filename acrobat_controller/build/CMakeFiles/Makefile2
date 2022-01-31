@@ -973,22 +973,22 @@ dynamics/preinstall:
 .PHONY : dynamics/preinstall
 
 #=============================================================================
-# Directory level rules for directory kinematics
+# Directory level rules for directory dynamics_3dof
 
 # Convenience name for "all" pass in the directory.
-kinematics/all:
+dynamics_3dof/all:
 
-.PHONY : kinematics/all
+.PHONY : dynamics_3dof/all
 
 # Convenience name for "clean" pass in the directory.
-kinematics/clean:
+dynamics_3dof/clean:
 
-.PHONY : kinematics/clean
+.PHONY : dynamics_3dof/clean
 
 # Convenience name for "preinstall" pass in the directory.
-kinematics/preinstall:
+dynamics_3dof/preinstall:
 
-.PHONY : kinematics/preinstall
+.PHONY : dynamics_3dof/preinstall
 
 #=============================================================================
 # Special targets to cleanup operation of make.

@@ -7,4 +7,10 @@
 # new environment variables
 
 # modified environment variables
+export CMAKE_PREFIX_PATH="/home/guilherme/acrobat_controller/devel:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/guilherme/acrobat_controller/devel/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/home/guilherme/acrobat_controller/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD='/home/guilherme/acrobat_controller/build'
+export PYTHONPATH="/home/guilherme/acrobat_controller/devel/lib/python2.7/dist-packages:$PYTHONPATH"
+export ROSLISP_PACKAGE_DIRECTORIES='/home/guilherme/acrobat_controller/devel/share/common-lisp'
+export ROS_PACKAGE_PATH="/home/guilherme/acrobat_controller/src:$ROS_PACKAGE_PATH"
