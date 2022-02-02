@@ -131,6 +131,8 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/guilherme/acrobat_controller/build/gtest/cmake_install.cmake")
+  include("/home/guilherme/acrobat_controller/build/ar_tag/cmake_install.cmake")
+  include("/home/guilherme/acrobat_controller/build/models/cmake_install.cmake")
   include("/home/guilherme/acrobat_controller/build/controller/cmake_install.cmake")
   include("/home/guilherme/acrobat_controller/build/dynamics/cmake_install.cmake")
   include("/home/guilherme/acrobat_controller/build/dynamics_3dof/cmake_install.cmake")

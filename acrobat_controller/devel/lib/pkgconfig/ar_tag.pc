@@ -1,0 +1,8 @@
+prefix=/home/guilherme/acrobat_controller/devel
+
+Name: ar_tag
+Description: Description of ar_tag
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

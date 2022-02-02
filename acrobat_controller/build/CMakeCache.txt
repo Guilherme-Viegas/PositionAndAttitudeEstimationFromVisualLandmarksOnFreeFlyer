@@ -294,6 +294,12 @@ _gtest_INCLUDES:FILEPATH=/usr/include/gtest/gtest.h
 _gtest_SOURCES:FILEPATH=/usr/src/gtest/src/gtest.cc
 
 //Value Computed by CMake
+ar_tag_BINARY_DIR:STATIC=/home/guilherme/acrobat_controller/build/ar_tag
+
+//Value Computed by CMake
+ar_tag_SOURCE_DIR:STATIC=/home/guilherme/acrobat_controller/src/ar_tag
+
+//Value Computed by CMake
 aruco_BINARY_DIR:STATIC=/home/guilherme/acrobat_controller/build/aruco_ros/aruco
 
 //Value Computed by CMake
@@ -417,6 +423,12 @@ kinematics_BINARY_DIR:STATIC=/home/guilherme/acrobat_controller/build/kinematics
 //Value Computed by CMake
 kinematics_SOURCE_DIR:STATIC=/home/guilherme/acrobat_controller/src/kinematics
 
+//Value Computed by CMake
+launch_BINARY_DIR:STATIC=/home/guilherme/acrobat_controller/build/launch
+
+//Value Computed by CMake
+launch_SOURCE_DIR:STATIC=/home/guilherme/acrobat_controller/src/launch
+
 //Path to a library.
 lib:FILEPATH=/opt/ros/melodic/lib/libxmlrpcpp.so
 
@@ -428,6 +440,12 @@ message_generation_DIR:PATH=/opt/ros/melodic/share/message_generation/cmake
 
 //The directory containing a CMake configuration file for message_runtime.
 message_runtime_DIR:PATH=/opt/ros/melodic/share/message_runtime/cmake
+
+//Value Computed by CMake
+models_BINARY_DIR:STATIC=/home/guilherme/acrobat_controller/build/models
+
+//Value Computed by CMake
+models_SOURCE_DIR:STATIC=/home/guilherme/acrobat_controller/src/models
 
 //The directory containing a CMake configuration file for pluginlib.
 pluginlib_DIR:PATH=/opt/ros/melodic/share/pluginlib/cmake
@@ -590,7 +608,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=7
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=9
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

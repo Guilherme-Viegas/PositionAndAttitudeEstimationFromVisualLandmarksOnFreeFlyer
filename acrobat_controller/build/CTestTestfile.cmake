@@ -5,6 +5,8 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
+subdirs("ar_tag")
+subdirs("models")
 subdirs("controller")
 subdirs("dynamics")
 subdirs("dynamics_3dof")
