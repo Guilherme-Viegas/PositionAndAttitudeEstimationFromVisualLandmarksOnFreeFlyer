@@ -1,0 +1,8 @@
+prefix=/home/gviegas/catkin_ws/install
+
+Name: acrobat
+Description: Description of acrobat
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

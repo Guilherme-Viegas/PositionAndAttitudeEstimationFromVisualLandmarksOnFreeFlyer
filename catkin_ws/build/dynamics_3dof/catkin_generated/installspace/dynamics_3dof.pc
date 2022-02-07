@@ -1,0 +1,8 @@
+prefix=/home/gviegas/catkin_ws/install
+
+Name: dynamics_3dof
+Description: Description of dynamics_3dof
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

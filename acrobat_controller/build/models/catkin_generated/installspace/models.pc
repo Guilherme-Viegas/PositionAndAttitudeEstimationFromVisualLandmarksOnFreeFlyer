@@ -1,8 +1,0 @@
-prefix=/home/guilherme/acrobat_controller/install
-
-Name: models
-Description: Description of models
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

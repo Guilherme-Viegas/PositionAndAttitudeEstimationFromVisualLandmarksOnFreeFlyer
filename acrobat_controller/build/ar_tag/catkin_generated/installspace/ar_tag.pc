@@ -1,8 +1,0 @@
-prefix=/home/guilherme/acrobat_controller/install
-
-Name: ar_tag
-Description: Description of ar_tag
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

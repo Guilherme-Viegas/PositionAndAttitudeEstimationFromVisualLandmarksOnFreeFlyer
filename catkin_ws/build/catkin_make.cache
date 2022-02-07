@@ -1,0 +1,2 @@
+acrobat:ar_tag:controller:dynamics:dynamics_3dof:models:usb_cam
+-DCATKIN_DEVEL_PREFIX=/home/gviegas/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/gviegas/catkin_ws/install -G Unix Makefiles
