@@ -1,7 +1,23 @@
-#!/usr/bin/env python
+
+# Uses the same dynamics as the 6Dof (just a reduced state) and different model to compute Force and Torque because there are only 3 blades
+# Receive user input for the objective position and attitude (later on will be received from a subscriber to pose of aruco pkg)
+# Computes the necessary rotations per second on each of ACROBAT's blades to reach that position and attitude
+# Based on 2 papers:
+#   - "A multi-objective optimization approach to the design of a free-flyer space robot for in-orbit manufacturing and assembly" by Vale, Rocha, Leite and Ventura
+#   - "Towards an autonomous free-flying robot fleet for intra-vehicular trasnportation of loads in unmanned space stations" by Ventura, Roque and Ekal
 
 import cv2 # Import the OpenCV library
 import numpy as np # Import Numpy library
+
+def get_rotation_matrix_from_euler_angles(euler_angles):
+    x = euler_angles[0]
+    y = euler_angles[1]
+    z = euler_angles[2]
+    return np.array([
+            [np.cos(y)*np.cos(x) ,  -np.cos(z)*np.sin(x)+np.sin(z)*np.cos(x)*np.sin(y) , np.sin(z)*np.sin(x)+np.cos(z)*np.sin(y)*np.cos(x)],    #TODO(): Double check if it's correct
+            [np.cos(y)*np.sin(x) , np.cos(z)*np.cos(x)+np.sin(z)*np.sin(y)*np.sin(x) , -np.sin(z)*np.cos(x)+np.cos(z)*np.sin(y)*np.sin(x)],
+            [-np.sin(y) , np.sin(z)*np.cos(y) , np.cos(z)*np.cos(y)]
+        ])
 
 FREE_FLYER_MASS = 0.340 # Kg, Random testing value... Still have to search for the exact mass of the ACROBAT
 FREE_FLYER_MOMENT_OF_INERTIA = np.array((0.1348056, 0.1902704, 0.1435024)) # Kg.m^2 ... Still have to search for exact moment of inertia vector of the ACROBAT
@@ -29,23 +45,6 @@ a5 = np.array((-0.001067244345, 0.01896885746, -0.05617408802, 0.05638539532, -0
 a6 = np.array((.9982558165, 0.05796384873, 0.9983184715, -0.01714869459, 0.07147917464, 0.01299743049)).T
 
 
-# Uses the same dynamics as the 6Dof (just a reduced state) and different model to compute Force and Torque because there are only 3 blades
-# Receive user input for the objective position and attitude (later on will be received from a subscriber to pose of aruco pkg)
-# Computes the necessary rotations per second on each of ACROBAT's blades to reach that position and attitude
-# Based on 2 papers:
-#   - "A multi-objective optimization approach to the design of a free-flyer space robot for in-orbit manufacturing and assembly" by Vale, Rocha, Leite and Ventura
-#   - "Towards an autonomous free-flying robot fleet for intra-vehicular trasnportation of loads in unmanned space stations" by Ventura, Roque and Ekal
-
-def get_rotation_matrix_from_euler_angles(euler_angles):
-    x = euler_angles[0]
-    y = euler_angles[1]
-    z = euler_angles[2]
-    return np.array([
-            [np.cos(y)*np.cos(x) ,  -np.cos(z)*np.sin(x)+np.sin(z)*np.cos(x)*np.sin(y) , np.sin(z)*np.sin(x)+np.cos(z)*np.sin(y)*np.cos(x)],    #TODO(): Double check if it's correct
-            [np.cos(y)*np.sin(x) , np.cos(z)*np.cos(x)+np.sin(z)*np.sin(y)*np.sin(x) , -np.sin(z)*np.cos(x)+np.cos(z)*np.sin(y)*np.sin(x)],
-            [-np.sin(y) , np.sin(z)*np.cos(y) , np.cos(z)*np.cos(y)]
-        ])
-
 # This is needed because in 3DoF the actuation matrix is 3x6, meaning non invertible. But because the goal is to solve Aq = [F M]^T, one can use the left inverse to solve
 # Check https://math.stackexchange.com/questions/1335693/invertible-matrix-of-non-square-matrix
 def compute_left_inverse(matrix):
@@ -56,13 +55,13 @@ A = np.column_stack((a1, a2, a3))
 #A_inverse = np.linalg.inv(A)
 A_inverse = compute_left_inverse(A)
 
-def compute_force_and_torque(position, attitude):
-    # ************* Testing values, will be erased later *************
+def compute_force_and_torque(current_position, current_attitude):
+    # ************* Testing values, will be erased later ************* Should be received from IMU (?)
     current_linear_velocity = np.array((0, 0, 0))
     current_angular_velocity = np.array((0, 0, 0))
     # ****************************************************************
 
-    attitude_rotation_matrix = get_rotation_matrix_from_euler_angles(attitude)
+    attitude_rotation_matrix = get_rotation_matrix_from_euler_angles(current_attitude)
 
     # Translational Part
     error_x = current_position - DESIRED_POSITION

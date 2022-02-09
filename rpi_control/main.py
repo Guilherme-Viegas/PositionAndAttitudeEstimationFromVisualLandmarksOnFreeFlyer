@@ -1,14 +1,14 @@
-#!/usr/bin/env python
+
 
 from __future__ import print_function # Python 2/3 compatibility
 import cv2 # Import the OpenCV library
 import numpy as np # Import Numpy library
 import aruco_tracker as my_aruco
-import motor_control as motor_control
+#import motor_control as motor_control # Can only be run on an RPi due to the need for the RPi.GPIO library
 import controller as controller
 
 def main():
-    motor_control.setup_motors()
+    #motor_control.setup_motors()
 
     # Check that we have a valid ArUco marker
     my_aruco.check_aruco_validity()
@@ -47,11 +47,16 @@ def main():
         # Display the resulting frame
         ##cv2.imshow('img',img)
 
-        # Computing control values of the feedback chain
-        #TODO: I have to confirm that tvecs and rvecs is the position and attitude of the acrobat in relation to aruco marker (I believe it is the opposite now)
-        force, torque = controller.compute_force_and_torque(tvecs, rvecs)
-        pwm_control = controller.compute_pwm_control(force, torque)
-        motor_control.write_pwm(pwm_control)
+            # Computing control values of the feedback chain (Only if one aruco marker was found)
+            #TODO: I have to confirm that tvecs and rvecs is the position and attitude of the acrobat in relation to aruco marker (I believe it is the opposite now)
+            force, torque = controller.compute_force_and_torque(tvecs[0][0], rvecs[0][0])
+            pwm_control = controller.compute_pwm_control(force, torque)
+            print(force)
+            print(torque)
+            print("-------------")
+            print(pwm_control)
+            print("*******************")
+            #motor_control.write_pwm(pwm_control)
 
         # If "q" is pressed on the keyboard, 
         # exit this loop

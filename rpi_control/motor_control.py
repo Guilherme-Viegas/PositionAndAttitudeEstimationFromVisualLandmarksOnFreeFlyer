@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+
 
 #GPIO's with pwm port is 23, 24, 26
 import RPi.GPIO as GPIO
