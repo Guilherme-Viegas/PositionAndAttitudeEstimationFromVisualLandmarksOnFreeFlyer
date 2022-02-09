@@ -42,6 +42,12 @@ def main():
         if len(corners) > 0:
             cv2.aruco.drawDetectedMarkers(img, corners, ids)
             rvecs, tvecs, _objPoints = cv2.aruco.estimatePoseSingleMarkers(corners, my_aruco.ARUCO_SIZE, camera_matrix, distortion)
+
+            # rvecs is a compact Rodrigues rotation vector so I need to convert it to euler angles form
+            rotation_matrix, _ = cv2.Rodrigues(rvecs[0][0])
+            rotation_matrix = np.asmatrix(rotation_matrix)
+            current_attitude = controller.get_euler_anles_from_rotation_matrix(rotation_matrix)
+
             ##for i in range(len(ids)):
                 ##img = cv2.aruco.drawAxis(img, camera_matrix, distortion, rvecs[i], tvecs[i],  0.05)
         # Display the resulting frame
@@ -49,7 +55,7 @@ def main():
 
             # Computing control values of the feedback chain (Only if one aruco marker was found)
             #TODO: I have to confirm that tvecs and rvecs is the position and attitude of the acrobat in relation to aruco marker (I believe it is the opposite now)
-            force, torque = controller.compute_force_and_torque(tvecs[0][0], rvecs[0][0])
+            force, torque = controller.compute_force_and_torque(tvecs[0][0], current_attitude)
             pwm_control = controller.compute_pwm_control(force, torque)
             print(force)
             print(torque)

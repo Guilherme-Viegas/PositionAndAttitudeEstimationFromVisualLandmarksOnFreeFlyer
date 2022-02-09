@@ -8,6 +8,7 @@
 
 import cv2 # Import the OpenCV library
 import numpy as np # Import Numpy library
+import math
 
 def get_rotation_matrix_from_euler_angles(euler_angles):
     x = euler_angles[0]
@@ -18,6 +19,24 @@ def get_rotation_matrix_from_euler_angles(euler_angles):
             [np.cos(y)*np.sin(x) , np.cos(z)*np.cos(x)+np.sin(z)*np.sin(y)*np.sin(x) , -np.sin(z)*np.cos(x)+np.cos(z)*np.sin(y)*np.sin(x)],
             [-np.sin(y) , np.sin(z)*np.cos(y) , np.cos(z)*np.cos(y)]
         ])
+
+# Calculates rotation matrix to euler angles
+def get_euler_anles_from_rotation_matrix(R) :
+
+    sy = math.sqrt(R[0,0] * R[0,0] +  R[1,0] * R[1,0])
+
+    singular = sy < 1e-6
+
+    if  not singular :
+        x = math.atan2(R[2,1] , R[2,2])
+        y = math.atan2(-R[2,0], sy)
+        z = math.atan2(R[1,0], R[0,0])
+    else :
+        x = math.atan2(-R[1,2], R[1,1])
+        y = math.atan2(-R[2,0], sy)
+        z = 0
+
+    return np.array([x, y, z])
 
 FREE_FLYER_MASS = 0.340 # Kg, Random testing value... Still have to search for the exact mass of the ACROBAT
 FREE_FLYER_MOMENT_OF_INERTIA = np.array((0.1348056, 0.1902704, 0.1435024)) # Kg.m^2 ... Still have to search for exact moment of inertia vector of the ACROBAT
